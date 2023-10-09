@@ -7,10 +7,17 @@ import chatRoutes from "./routes/chatRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import path from "path";
+import cors from "cors";
 
 dotenv.config();
 connectDB();
+
+const corsOptions = {
+  origin: "*",
+};
 const app = express();
+
+app.use(cors(corsOptions));
 
 app.use(express.json()); // to accept json data
 
@@ -54,7 +61,7 @@ const server = app.listen(
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     // credentials: true,
   },
 });
